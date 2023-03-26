@@ -1,32 +1,32 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 /// <summary>
-/// L‚ğƒNƒŠƒbƒN‚µ‚½Û‚ÉŒÄ‚Î‚ê‚ÄA‰æ‘œ‚ğ•Ï‚¦‚é
+/// åºƒå‘Šã‚’ã‚¯ãƒªãƒƒã‚¯ã—ãŸéš›ã«å‘¼ã°ã‚Œã¦ã€ç”»åƒã‚’å¤‰ãˆã‚‹
 /// </summary>
 public class Advertisement : MonoBehaviour
 {
     [SerializeField] 
-    [Header("L‚ÌƒXƒvƒ‰ƒCƒg")]
+    [Header("åºƒå‘Šã®ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ")]
     SpriteRenderer _sprite;
 
     [SerializeField]
-    [Header("•ÏX‘O‚ÌƒXƒvƒ‰ƒCƒg")]
+    [Header("å¤‰æ›´å‰ã®ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ")]
     Sprite _startSprites;
 
     [SerializeField]
-    [Header("•ÏXŒã‚Ì‰æ‘œ")]
+    [Header("å¤‰æ›´å¾Œã®ç”»åƒ")]
     Sprite _changeSprite;
 
     [SerializeField]
-    [Header("L‚ª•Ï‚í‚éƒ^ƒCƒ~ƒ“ƒO‚ªˆê’è‚È‚çfalse ƒ‰ƒ“ƒ_ƒ€‚È‚çtrue")]
+    [Header("åºƒå‘ŠãŒå¤‰ã‚ã‚‹ã‚¿ã‚¤ãƒŸãƒ³ã‚°ãŒä¸€å®šãªã‚‰false ãƒ©ãƒ³ãƒ€ãƒ ãªã‚‰true")]
     bool _changeRandom;
 
     [SerializeField]
-    [Header("")]
-    bool _reduceCount;
+    [Header("æ™‚é–“ãŒæ¸›ã‚‹å ´åˆ true æ¸›ã‚‰ãªã„å ´åˆã€€false")]
+    bool _reduceTime;
 
     [SerializeField]
-    [Header("ƒ‰ƒ“ƒ_ƒ€‚ÌÅ¬’lAÅ‘å’l‚ğ“ü‚ê‚é")]
+    [Header("ãƒ©ãƒ³ãƒ€ãƒ ã®æœ€å°å€¤ã€æœ€å¤§å€¤ã‚’å…¥ã‚Œã‚‹")]
     int[] _randomCount;
 
     [SerializeField]
@@ -41,19 +41,19 @@ public class Advertisement : MonoBehaviour
             _count = Random();
             Debug.Log(_count);
         }
-        _reduceCount = true;
+        _reduceTime = true;
     }
 
     private void FixedUpdate()
     {
-        if (_reduceCount) 
+        if (_reduceTime)
         {
             _count -= Time.deltaTime;
-        } 
+        }
 
-        if(_count <= 0)
+        if (_count <= 0)
         {
-            _reduceCount = false;
+            _reduceTime = false;
             _count = _randomCount[0];
             _sprite.sprite = _startSprites;
         }
