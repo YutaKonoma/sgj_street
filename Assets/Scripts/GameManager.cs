@@ -12,6 +12,8 @@ public class GameManager : SingletonMonovihair<GameManager>
     float _score;
     public float score => _score;
     [SerializeField] GameObject _gameOver;
+    [Header("3‚©‚çGo‚Ì‡‚É“ü‚ê‚Ä‚­‚¾‚³‚¢B")]
+    [SerializeField] GameObject[] _countDownObject;
     int _level;
     public int level => _level;
     [SerializeField] string _sceneName;
@@ -37,7 +39,7 @@ public class GameManager : SingletonMonovihair<GameManager>
             _gameOver.SetActive(false);
         }
         ShowScoreText();
-        _gameStart = true;
+        StartCoroutine(CountDownTime());
     }
 
     // Update is called once per frame
@@ -60,7 +62,7 @@ public class GameManager : SingletonMonovihair<GameManager>
                 _gameOver.SetActive(true);
             }
                 _gameend = true;
-                SceneChangeController.LoadScene(_sceneName);
+            StartCoroutine(SceneChangeTime());
         }
     }
 
@@ -88,6 +90,29 @@ public class GameManager : SingletonMonovihair<GameManager>
         if (_gameOver)
         {
             _gameOver.SetActive(false);
+        }
+    }
+
+    IEnumerator SceneChangeTime()
+    {
+        yield return new WaitForSeconds(2f);
+        SceneChangeController.LoadScene(_sceneName);
+    }
+
+    IEnumerator CountDownTime()
+    {
+        if (_countDownObject.Length > 1)
+        {
+            _countDownObject[0].SetActive(true);
+            for (var i = 1; i < _countDownObject.Length; i++)
+            {
+                yield return new WaitForSeconds(1f);
+                _countDownObject[i].SetActive(true);
+                _countDownObject[i - 1].SetActive(false);
+            }
+            yield return new WaitForSeconds(1f);
+            _gameStart = true;
+            _countDownObject[_countDownObject.Length - 1].SetActive(false);
         }
     }
 
