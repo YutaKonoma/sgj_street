@@ -53,13 +53,10 @@ public class GameManager : SingletonMonovihair<GameManager>
         _scoreText.text = _score.ToString();
     }
 
-    public enum ScreenFlag
-    {
-
-    }
-
     public void AddScore(int score = 1)
     {
+        _score += score;
+        ShowScoreText();
     }
 
     private void OnLevelWasLoaded(int level)
