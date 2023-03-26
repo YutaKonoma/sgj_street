@@ -12,10 +12,11 @@ public class GameManager : SingletonMonovihair<GameManager>
     float _score;
     public float score => _score;
     [SerializeField] GameObject _gameOver;
-
+    int _level;
+    public int level => _level;
     bool _gameStart;
 
-    protected override bool _dontDestroyOnLoad { get { return true; } }
+    protected override bool _dontDestroyOnLoad => true;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +45,7 @@ public class GameManager : SingletonMonovihair<GameManager>
 
         if(_time == 0f)
         {
+            _gameStart = false;
             _gameOver.SetActive(true);
         }
     }
@@ -55,12 +57,30 @@ public class GameManager : SingletonMonovihair<GameManager>
 
     public void AddScore(int score = 1)
     {
-        _score += score;
-        ShowScoreText();
+        if (_gameStart)
+        {
+            _score += score;
+            ShowScoreText();
+        }
     }
 
     private void OnLevelWasLoaded(int level)
     {
         _time = _startTime;
+    }
+    
+    public void StartGame()
+    {
+        GameStart();
+    }
+
+    public void LevelUp()
+    {
+        _level++;
+    }
+
+    public void ResetLevel()
+    {
+        _level = 1;
     }
 }
