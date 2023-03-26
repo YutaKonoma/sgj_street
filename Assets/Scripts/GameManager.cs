@@ -65,7 +65,6 @@ public class GameManager : SingletonMonovihair<GameManager>
                 _gameend = true;
                 SceneChangeController.LoadScene(_sceneName);
             }
-            SceneChangeController.LoadScene(_sceneName);
         }
     }
 
@@ -102,21 +101,6 @@ public class GameManager : SingletonMonovihair<GameManager>
             _audio.clip = _music;
             _audio.Play();
         }
-    }
-
-    public void ResetLevel()
-    {
-        _level = 1;
-    }
-    
-    public void StartGame()
-    {
-        GameStart();
-    }
-
-    public void LevelUp()
-    {
-        _level++;
     }
 
     public void ResetLevel()
