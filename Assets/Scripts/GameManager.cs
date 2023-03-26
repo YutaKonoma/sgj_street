@@ -22,7 +22,7 @@ public class GameManager : SingletonMonovihair<GameManager>
     // Start is called before the first frame update
     void Start()
     {
-        GameStart();
+
     }
 
     public void GameStart()
