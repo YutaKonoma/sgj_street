@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 /// <summary>
 /// 広告をクリックした際に呼ばれて、画像を変える
@@ -27,38 +29,43 @@ public class Advertisement : MonoBehaviour
 
     [SerializeField]
     [Header("ランダムの最小値、最大値を入れる")]
-    int[] _randomCount;
+    int[] _randomCount = new int[2];
 
     [SerializeField]
+    [Header("広告が表示されるまでの時間")]
     float _count;
 
     private void OnMouseDown()
     {
         _sprite.sprite = _changeSprite;
-       
-        if(_changeRandom)
+
+        if (_changeRandom && !_reduceTime)
         {
             _count = Random();
+            StartCoroutine(ChangeSprite());
             Debug.Log(_count);
         }
-        _reduceTime = true;
+
+        _reduceTime = true;   
     }
 
-    private void FixedUpdate()
+    IEnumerator ChangeSprite() 
     {
-        if (_reduceTime)
+        while (true)
         {
-            _count -= Time.deltaTime;
-        }
+            if (_reduceTime) _count -= Time.deltaTime;
 
-        if (_count <= 0)
-        {
-            _reduceTime = false;
-            _count = _randomCount[0];
-            _sprite.sprite = _startSprites;
+            if (_count <= 0)
+            {
+                _reduceTime = false;
+                _count = _randomCount[0];
+                _sprite.sprite = _startSprites;
+                break;
+            }
+            yield return null;
         }
     }
-    
+
     public float Random()
     {
         _count = UnityEngine.Random.Range(_randomCount[0], _randomCount[1]);
