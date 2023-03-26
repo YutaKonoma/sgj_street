@@ -7,6 +7,8 @@ public class GameManager : SingletonMonovihair<GameManager>
 {
     Text _scoreText;
     Text _timeText;
+    AudioSource _audio;
+    [SerializeField] AudioClip _music;
     [SerializeField] float _startTime = 100f;
     float _time;
     float _score;
@@ -16,6 +18,7 @@ public class GameManager : SingletonMonovihair<GameManager>
     public int level => _level;
     [SerializeField] string _sceneName;
     bool _gameStart;
+    bool _gameend;
 
     protected override bool _dontDestroyOnLoad => true;
     // Start is called before the first frame update
@@ -28,6 +31,7 @@ public class GameManager : SingletonMonovihair<GameManager>
     {
         _scoreText = GameObject.FindGameObjectWithTag("Score")?.GetComponent<Text>();
         _timeText = GameObject.FindGameObjectWithTag("Time")?.GetComponent<Text>();
+        _audio = this?.GetComponent<AudioSource>();
         _time = _startTime;
         _score = 0;
         if (_gameOver)
@@ -54,7 +58,11 @@ public class GameManager : SingletonMonovihair<GameManager>
             {
                 _gameOver.SetActive(true);
             }
-            SceneChangeController.LoadScene(_sceneName);
+            if (!_gameend)
+            {
+                _gameend = true;
+                SceneChangeController.LoadScene(_sceneName);
+            }
         }
     }
 
@@ -75,6 +83,7 @@ public class GameManager : SingletonMonovihair<GameManager>
     private void OnLevelWasLoaded(int level)
     {
         _time = _startTime;
+        _gameend = false;
     }
     
     public void StartGame()
@@ -85,6 +94,11 @@ public class GameManager : SingletonMonovihair<GameManager>
     public void LevelUp()
     {
         _level++;
+        if(_audio && _music)
+        {
+            _audio.clip = _music;
+            _audio.Play();
+        }
     }
 
     public void ResetLevel()
