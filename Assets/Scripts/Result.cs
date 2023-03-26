@@ -25,10 +25,10 @@ public class Result : MonoBehaviour
     void Start()
     {
         //ゲームマネージャーからスコアをとる
-        _score = GameManager.Instance.score;
+        //_score = GameManager.Instance.score;
 
         //スコアテキストを更新
-        _scoreText.text = _score.ToString();
+        _scoreText.text = $"{_score}";
 
         if(_score >= _hightScore)
         {
