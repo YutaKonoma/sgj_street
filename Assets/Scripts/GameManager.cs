@@ -60,7 +60,6 @@ public class GameManager : SingletonMonovihair<GameManager>
 
     public void AddScore(int score = 1)
     {
-        _score
     }
 
     private void OnLevelWasLoaded(int level)
