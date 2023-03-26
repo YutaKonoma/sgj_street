@@ -6,22 +6,32 @@ using UnityEngine.UI;
 
 public class ChangeCamera : MonoBehaviour
 {
-    [SerializeField] private List<CinemachineVirtualCamera> _virtualCameras;
-    [SerializeField] private List<Button> _changeCameraButtons;
+
+    [SerializeField,Tooltip("クリックで移動するカメラ")] private List<CinemachineVirtualCamera> _virtualCameras;
+    [SerializeField, Tooltip("各ボタン")] private List<GameObject> _changeCameraButtons;
 
     int _priorityNum = 11;
     int _drowNUm = 10;
 
+    public void Awake()
+    {
+        
+        _changeCameraButtons[1].SetActive(false);
+    }
+
     public void RightButton()
     {
-        _virtualCameras[0].Priority = _priorityNum;
-        _virtualCameras[1].Priority = _drowNUm;
-        Debug.Log($"Right");
+        _virtualCameras[1].Priority = _priorityNum;
+        _virtualCameras[0].Priority = _drowNUm;
+        _changeCameraButtons[0].SetActive(false);
+        _changeCameraButtons[1].SetActive(true);
     }
 
     public void LeftButton()
     {
-        _virtualCameras[1].Priority = _priorityNum;
-        _virtualCameras[0].Priority = _drowNUm;
+        _virtualCameras[0].Priority = _priorityNum;
+        _virtualCameras[1].Priority = _drowNUm;
+        _changeCameraButtons[0].SetActive(true);
+        _changeCameraButtons[1].SetActive(false);
     }
 }

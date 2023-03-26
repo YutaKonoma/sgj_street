@@ -7,8 +7,6 @@ public class GameManager : SingletonMonovihair<GameManager>
 {
     Text _scoreText;
     Text _timeText;
-    AudioSource _audio;
-    [SerializeField] AudioClip _music;
     [SerializeField] float _startTime = 100f;
     float _time;
     float _score;
@@ -24,15 +22,13 @@ public class GameManager : SingletonMonovihair<GameManager>
     // Start is called before the first frame update
     void Start()
     {
-        GameStart();
+
     }
 
-    void GameStart()
+    public void GameStart()
     {
         _scoreText = GameObject.FindGameObjectWithTag("Score")?.GetComponent<Text>();
         _timeText = GameObject.FindGameObjectWithTag("Time")?.GetComponent<Text>();
-
-        _audio = this?.GetComponent<AudioSource>();
 
         _time = _startTime;
         _score = 0;
@@ -49,28 +45,31 @@ public class GameManager : SingletonMonovihair<GameManager>
     {
         if (_gameStart)
         {
-            _timeText.text = string.Format("{0:00.00}", _time);
+            if (_timeText)
+            {
+                _timeText.text = string.Format("{0:00.00}", _time);
+            }
             _time = Mathf.Max(_time - Time.deltaTime, 0f);
         }
 
-        if(_time == 0f)
+        if(_time == 0f && !_gameend)
         {
             _gameStart = false;
             if (_gameOver)
             {
                 _gameOver.SetActive(true);
             }
-            if (!_gameend)
-            {
                 _gameend = true;
                 SceneChangeController.LoadScene(_sceneName);
-            }
         }
     }
 
     void ShowScoreText()
     {
-        _scoreText.text = _score.ToString();
+        if (_scoreText)
+        {
+            _scoreText.text = _score.ToString();
+        }
     }
 
     public void AddScore(int score = 1)
@@ -86,21 +85,15 @@ public class GameManager : SingletonMonovihair<GameManager>
     {
         _time = _startTime;
         _gameend = false;
-    }
-    
-    public void StartGame()
-    {
-        GameStart();
+        if (_gameOver)
+        {
+            _gameOver.SetActive(false);
+        }
     }
 
     public void LevelUp()
     {
         _level++;
-        if(_audio && _music)
-        {
-            _audio.clip = _music;
-            _audio.Play();
-        }
     }
 
     public void ResetLevel()
