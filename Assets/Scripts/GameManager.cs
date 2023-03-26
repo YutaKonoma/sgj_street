@@ -14,6 +14,7 @@ public class GameManager : SingletonMonovihair<GameManager>
     [SerializeField] GameObject _gameOver;
     int _level;
     public int level => _level;
+    [SerializeField] string _sceneName;
     bool _gameStart;
 
     protected override bool _dontDestroyOnLoad => true;
@@ -25,11 +26,14 @@ public class GameManager : SingletonMonovihair<GameManager>
 
     void GameStart()
     {
-        _scoreText = GameObject.FindGameObjectWithTag("Score").GetComponent<Text>();
-        _timeText = GameObject.FindGameObjectWithTag("Time").GetComponent<Text>();
+        _scoreText = GameObject.FindGameObjectWithTag("Score")?.GetComponent<Text>();
+        _timeText = GameObject.FindGameObjectWithTag("Time")?.GetComponent<Text>();
         _time = _startTime;
         _score = 0;
-        _gameOver.SetActive(false);
+        if (_gameOver)
+        {
+            _gameOver.SetActive(false);
+        }
         ShowScoreText();
         _gameStart = true;
     }
@@ -46,7 +50,11 @@ public class GameManager : SingletonMonovihair<GameManager>
         if(_time == 0f)
         {
             _gameStart = false;
-            _gameOver.SetActive(true);
+            if (_gameOver)
+            {
+                _gameOver.SetActive(true);
+            }
+            SceneChangeController.LoadScene(_sceneName);
         }
     }
 
