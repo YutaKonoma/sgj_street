@@ -31,7 +31,9 @@ public class GameManager : SingletonMonovihair<GameManager>
     {
         _scoreText = GameObject.FindGameObjectWithTag("Score")?.GetComponent<Text>();
         _timeText = GameObject.FindGameObjectWithTag("Time")?.GetComponent<Text>();
+
         _audio = this?.GetComponent<AudioSource>();
+
         _time = _startTime;
         _score = 0;
         if (_gameOver)
@@ -63,6 +65,7 @@ public class GameManager : SingletonMonovihair<GameManager>
                 _gameend = true;
                 SceneChangeController.LoadScene(_sceneName);
             }
+            SceneChangeController.LoadScene(_sceneName);
         }
     }
 
@@ -99,6 +102,21 @@ public class GameManager : SingletonMonovihair<GameManager>
             _audio.clip = _music;
             _audio.Play();
         }
+    }
+
+    public void ResetLevel()
+    {
+        _level = 1;
+    }
+    
+    public void StartGame()
+    {
+        GameStart();
+    }
+
+    public void LevelUp()
+    {
+        _level++;
     }
 
     public void ResetLevel()
