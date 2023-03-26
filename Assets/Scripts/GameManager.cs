@@ -45,22 +45,22 @@ public class GameManager : SingletonMonovihair<GameManager>
     {
         if (_gameStart)
         {
-            _timeText.text = string.Format("{0:00.00}", _time);
+            if (_timeText)
+            {
+                _timeText.text = string.Format("{0:00.00}", _time);
+            }
             _time = Mathf.Max(_time - Time.deltaTime, 0f);
         }
 
-        if(_time == 0f)
+        if(_time == 0f && !_gameend)
         {
             _gameStart = false;
             if (_gameOver)
             {
                 _gameOver.SetActive(true);
             }
-            if (!_gameend)
-            {
                 _gameend = true;
                 SceneChangeController.LoadScene(_sceneName);
-            }
         }
     }
 
@@ -85,6 +85,10 @@ public class GameManager : SingletonMonovihair<GameManager>
     {
         _time = _startTime;
         _gameend = false;
+        if (_gameOver)
+        {
+            _gameOver.SetActive(false);
+        }
     }
 
     public void LevelUp()
