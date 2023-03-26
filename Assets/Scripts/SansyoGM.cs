@@ -7,7 +7,7 @@ public class SansyoGM : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        GameManager.Instance.GameStart();
     }
 
     // Update is called once per frame
