@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -8,77 +7,84 @@ using UnityEngine;
 public class Advertisement : MonoBehaviour
 {
     [SerializeField]
-    [Header("広告のスプライト")]
+    [Header("このスクリプトがついている広告のスプライトレンダラー")]
     SpriteRenderer _sprite;
 
     [SerializeField]
-    [Header("変更前のスプライト")]
+    [Header("変更前(クリック前)の画像")]
     Sprite _startSprites;
 
     [SerializeField]
-    [Header("変更後の画像")]
-    Sprite _changeSprite;
+    [Header("推しアイドルの画像")]
+    Sprite _favoriteIdoleSprite;
+
+    [SerializeField]
+    [Header("他のアイドルの画像")]
+    Sprite _otherIdolSprite;
 
     [SerializeField]
     [Header("クリック時のパーティクル 非表示にしておく")]
     GameObject _particle;
 
     [SerializeField]
-    [Header("広告が変わるタイミングが一定ならfalse ランダムならtrue")]
-    bool _changeRandom;
-
-    [SerializeField]
     [Header("時間が減る場合 true 減らない場合　false")]
-    bool _reduceTime;
+    bool _decreaseTime　= false;
 
     [SerializeField]
     [Header("ランダムの最小値、最大値を入れる")]
-    int[] _randomCount = new int[2];
+    [Header("フィーバー状態に入ると最大値がElement2に変わる")]
+    int[] _randomCount = new int[3];
 
     [SerializeField]
-    [Header("広告が表示されるまでの時間")]
+    [Header("広告が再度表示されるまでの時間")]
     float _count;
 
-    private void OnMouseDown()
+    void OnMouseDown()
     {
-        
-        _sprite.sprite = _changeSprite;
-        
-
-        if (_changeRandom && !_reduceTime)
+        if (!_decreaseTime && GameManager.Instance.gameStart && !GameManager.Instance.gameEnd)
         {
+            _sprite.sprite = _favoriteIdoleSprite;
             GameManager.Instance.AddScore();
             _particle.SetActive(true);
             _count = Random();
-            StartCoroutine(ChangeSprite());
-            Debug.Log(_count);
+            StartCoroutine(ChangeSprite());  
         }
 
-        _reduceTime = true;
+        _decreaseTime = true;
     }
 
     IEnumerator ChangeSprite()
     {
         while (true)
         {
-            if (_reduceTime) _count -= Time.deltaTime;
+            if (_decreaseTime) _count -= Time.deltaTime;
 
             if (_count <= 0)
             {
                 _particle.SetActive(false);
-                _reduceTime = false;
-                _count = _randomCount[0];
-                _sprite.sprite = _startSprites;
+                _decreaseTime = false;
+
+                if (!GameManager.Instance.feverTime) _sprite.sprite = _startSprites;
+                else _sprite.sprite = _otherIdolSprite;
+
                 break;
             }
             yield return null;
         }
     }
 
-    public float Random()
+    float Random()
     {
-        _count = UnityEngine.Random.Range(_randomCount[0], _randomCount[1]);
-        return _count;
-    }
+        if (!GameManager.Instance.feverTime)
+        {
+            _count = UnityEngine.Random.Range(_randomCount[0], _randomCount[1]);
+            return _count;
+        }
+        else
+        {
+            _count = UnityEngine.Random.Range(_randomCount[0], _randomCount[2]);
+            return _count;
+        }
 
+    }
 }
