@@ -63,8 +63,8 @@ public class AudioManager : SingletonMonovihair<AudioManager>
     {
         public enum SE
         {
-            TitleButton,
-            Click,
+            ClickButton,
+            ClickPanel,
         }
 
         public SE Se;
