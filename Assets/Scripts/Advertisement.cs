@@ -1,11 +1,13 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 /// <summary>
 /// 広告をクリックした際に呼ばれて、画像を変える
 /// </summary>
 public class Advertisement : MonoBehaviour
 {
-    [SerializeField] 
+    [SerializeField]
     [Header("広告のスプライト")]
     SpriteRenderer _sprite;
 
@@ -18,6 +20,10 @@ public class Advertisement : MonoBehaviour
     Sprite _changeSprite;
 
     [SerializeField]
+    [Header("クリック時のパーティクル 非表示にしておく")]
+    GameObject _particle;
+
+    [SerializeField]
     [Header("広告が変わるタイミングが一定ならfalse ランダムならtrue")]
     bool _changeRandom;
 
@@ -27,38 +33,45 @@ public class Advertisement : MonoBehaviour
 
     [SerializeField]
     [Header("ランダムの最小値、最大値を入れる")]
-    int[] _randomCount;
+    int[] _randomCount = new int[2];
 
     [SerializeField]
+    [Header("広告が表示されるまでの時間")]
     float _count;
 
     private void OnMouseDown()
     {
+        GameManager.Instance.AddScore();
         _sprite.sprite = _changeSprite;
-       
-        if(_changeRandom)
+        _particle.SetActive(true);
+
+        if (_changeRandom && !_reduceTime)
         {
             _count = Random();
+            StartCoroutine(ChangeSprite());
             Debug.Log(_count);
         }
+
         _reduceTime = true;
     }
 
-    private void FixedUpdate()
+    IEnumerator ChangeSprite()
     {
-        if (_reduceTime)
+        while (true)
         {
-            _count -= Time.deltaTime;
-        }
+            if (_reduceTime) _count -= Time.deltaTime;
 
-        if (_count <= 0)
-        {
-            _reduceTime = false;
-            _count = _randomCount[0];
-            _sprite.sprite = _startSprites;
+            if (_count <= 0)
+            {
+                _reduceTime = false;
+                _count = _randomCount[0];
+                _sprite.sprite = _startSprites;
+                break;
+            }
+            yield return null;
         }
     }
-    
+
     public float Random()
     {
         _count = UnityEngine.Random.Range(_randomCount[0], _randomCount[1]);
