@@ -23,7 +23,7 @@ public class ScoreSystem : MonoBehaviour
     /// </summary>
     public void CheckHighScore()
     {
-        // _score = GameManager.Instance.score;
+        _score = GameManager.Instance.score;
 
         if (_score > _highScore) _highScore = _score;
 
