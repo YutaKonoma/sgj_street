@@ -383,6 +383,7 @@ GameObject:
   - component: {fileID: 321894802}
   - component: {fileID: 321894804}
   - component: {fileID: 321894803}
+  - component: {fileID: 321894805}
   m_Layer: 5
   m_Name: people (1)
   m_TagString: Untagged
@@ -448,6 +449,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 321894801}
   m_CullTransparentMesh: 1
+--- !u!111 &321894805
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 321894801}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 46ca764b359ae6f449c009e348a8a748, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 46ca764b359ae6f449c009e348a8a748, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &338248187
 GameObject:
   m_ObjectHideFlags: 0
@@ -1353,6 +1370,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1047725712
 GameObject:
   m_ObjectHideFlags: 0
@@ -1581,6 +1599,7 @@ GameObject:
   - component: {fileID: 1210514370}
   - component: {fileID: 1210514373}
   - component: {fileID: 1210514372}
+  - component: {fileID: 1210514374}
   m_Layer: 5
   m_Name: people
   m_TagString: Untagged
@@ -1646,6 +1665,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1210514369}
   m_CullTransparentMesh: 1
+--- !u!111 &1210514374
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1210514369}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 14271ef1cf936494ab449a575c0f29e8, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 14271ef1cf936494ab449a575c0f29e8, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &1276368653
 GameObject:
   m_ObjectHideFlags: 0
@@ -3419,6 +3454,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1853347704
 GameObject:
   m_ObjectHideFlags: 0
