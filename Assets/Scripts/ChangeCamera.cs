@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using static AudioManager;
 
 public class ChangeCamera : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class ChangeCamera : MonoBehaviour
     {
         _virtualCameras[1].Priority = _priorityNum;
         _virtualCameras[0].Priority = _drowNUm;
+        AudioManager.Instance.PlaySE(SeSoundData.SE.ClickButton);
         _changeCameraButtons[0].SetActive(false);
         _changeCameraButtons[1].SetActive(true);
     }
@@ -28,6 +30,7 @@ public class ChangeCamera : MonoBehaviour
     {
         _virtualCameras[0].Priority = _priorityNum;
         _virtualCameras[1].Priority = _drowNUm;
+        AudioManager.Instance.PlaySE(SeSoundData.SE.ClickButton);
         _changeCameraButtons[0].SetActive(true);
         _changeCameraButtons[1].SetActive(false);
     }
