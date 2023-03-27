@@ -57,7 +57,7 @@ public class GameManager : SingletonMonovihair<GameManager>
         _levelText = GameObject.FindGameObjectWithTag("Level")?.GetComponent<Text>();
         //_timeText = GameObject.FindGameObjectWithTag("Time")?.GetComponent<Text>();
         //_timeSlider = GameObject.FindGameObjectWithTag("Time")?.GetComponent<Slider>();
-
+        AudioManager.Instance.PlayBGM(AudioManager.BgmSoundData.BGM.Game);
         _time = _startTime;
         _score = _startScore;
         if (_gameOver)
@@ -164,6 +164,7 @@ public class GameManager : SingletonMonovihair<GameManager>
     {
         _time = _startTime;
         _gameEnd = false;
+        _feverTime = false;
         if (_gameOver)
         {
             _gameOver.SetActive(false);
