@@ -49,6 +49,7 @@ public class AudioManager : SingletonMonovihair<AudioManager>
         {
             Title,
             Game,
+            fever,
             Result,
         }
 
@@ -63,6 +64,10 @@ public class AudioManager : SingletonMonovihair<AudioManager>
     {
         public enum SE
         {
+            Start,
+            CountDown,
+            End,
+            fever,
             ClickButton,
             ClickPanel,
         }
