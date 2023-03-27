@@ -1,8 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
-using UnityEngine.UI;
 
 public class ChangeCamera : MonoBehaviour
 {
@@ -15,8 +13,7 @@ public class ChangeCamera : MonoBehaviour
 
     public void Awake()
     {
-        
-        _changeCameraButtons[1].SetActive(false);
+        _changeCameraButtons[0].SetActive(false);
     }
 
     public void RightButton()
