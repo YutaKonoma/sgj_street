@@ -6,7 +6,11 @@ using UnityEngine.UI;
 public class GameManager : SingletonMonovihair<GameManager>
 {
     Text _scoreText;
-    Text _timeText;
+    //Text _timeText;
+    //Slider _timeSlider;
+    Image _timerObj;
+    [Header("ìdírç≈ëÂÇ©ÇÁ0Ç‹Ç≈ÇÃèáÇ…ì¸ÇÍÇÈÅB")]
+    [SerializeField] Sprite[] _timerSprites; 
     [SerializeField] float _startTime = 100f;
     float _time;
     float _score;
@@ -21,7 +25,11 @@ public class GameManager : SingletonMonovihair<GameManager>
     public int level => _level;
     [SerializeField] string _sceneName;
     bool _gameStart;
+    public bool gameStart => _gameStart;
     bool _gameEnd;
+    public bool gameEnd => _gameEnd;
+    bool _oneTimer;
+    bool _twoTimer;
 
     protected override bool _dontDestroyOnLoad => true;
     // Start is called before the first frame update
@@ -33,7 +41,9 @@ public class GameManager : SingletonMonovihair<GameManager>
     public void GameStart()
     {
         _scoreText = GameObject.FindGameObjectWithTag("Score")?.GetComponent<Text>();
-        _timeText = GameObject.FindGameObjectWithTag("Time")?.GetComponent<Text>();
+        _timerObj = GameObject.FindGameObjectWithTag("Time")?.GetComponent<Image>();
+        //_timeText = GameObject.FindGameObjectWithTag("Time")?.GetComponent<Text>();
+        //_timeSlider = GameObject.FindGameObjectWithTag("Time")?.GetComponent<Slider>();
 
         _time = _startTime;
         _score = 0;
@@ -50,16 +60,39 @@ public class GameManager : SingletonMonovihair<GameManager>
     {
         if (_gameStart)
         {
-            if (_timeText)
+            //if (_timeText)
+            //{
+            //    _timeText.text = string.Format("{0:00.00}", _time);
+            //}
+            //if(_timeSlider)
+            //{
+            //    _timeSlider.value = _time / _startTime; 
+            //}
+            if (_timerObj && _timerSprites.Length >= 3)
             {
-                _timeText.text = string.Format("{0:00.00}", _time);
+                if(_time / _startTime < 0.3f && !_twoTimer)
+                {
+                    _twoTimer = true;
+                    _timerObj.sprite = _timerSprites[_timerSprites.Length - 2];
+                }
+                else if(_time / _startTime < 0.6f && !_oneTimer)
+                {
+                    _oneTimer = true;
+                    _timerObj.sprite = _timerSprites[_timerSprites.Length - 3];
+                }
             }
+
+
             _time = Mathf.Max(_time - Time.deltaTime, 0f);
         }
 
         if(_time == 0f && !_gameEnd)
         {
             _gameStart = false;
+            if(_timerObj)
+            {
+                _timerObj.sprite = _timerSprites[_timerSprites.Length - 1];
+            }
             if (_gameOver)
             {
                 _gameOver.SetActive(true);
@@ -79,7 +112,7 @@ public class GameManager : SingletonMonovihair<GameManager>
 
     public void AddScore(int score = 1)
     {
-        if (_gameStart)
+        if (_gameStart && !gameEnd)
         {
             _score += score;
             ShowScoreText();
