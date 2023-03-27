@@ -22,6 +22,7 @@ public class Result : MonoBehaviour
 
     void Start()
     {
+        AudioManager.Instance.PlayBGM(AudioManager.BgmSoundData.BGM.Result);
         //ゲームマネージャーからスコアをとる
         _score = GameManager.Instance.score;
 
