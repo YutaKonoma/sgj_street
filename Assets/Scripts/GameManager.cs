@@ -41,7 +41,7 @@ public class GameManager : SingletonMonovihair<GameManager>
     public void GameStart()
     {
         _scoreText = GameObject.FindGameObjectWithTag("Score")?.GetComponent<Text>();
-        _timerObj = GameObject.FindGameObjectWithTag("Time").GetComponent<Image>();
+        _timerObj = GameObject.FindGameObjectWithTag("Time")?.GetComponent<Image>();
         //_timeText = GameObject.FindGameObjectWithTag("Time")?.GetComponent<Text>();
         //_timeSlider = GameObject.FindGameObjectWithTag("Time")?.GetComponent<Slider>();
 
@@ -112,7 +112,7 @@ public class GameManager : SingletonMonovihair<GameManager>
 
     public void AddScore(int score = 1)
     {
-        if (_gameStart && _gameEnd)
+        if (_gameStart && !gameEnd)
         {
             _score += score;
             ShowScoreText();
