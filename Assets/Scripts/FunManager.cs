@@ -17,7 +17,8 @@ public class FunManager : MonoBehaviour
 
     void CheckLevel()
     {
-        if(GameManager.Instance.score >= _levelUpValues[GameManager.Instance.level - 1])
+        if(GameManager.Instance.level - 1 != _levelUpValues.Length &&
+            GameManager.Instance.score >= _levelUpValues[GameManager.Instance.level - 1])
         {
             LevelUp();
         }

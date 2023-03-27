@@ -41,12 +41,14 @@ public class Advertisement : MonoBehaviour
 
     private void OnMouseDown()
     {
-        GameManager.Instance.AddScore();
+        
         _sprite.sprite = _changeSprite;
-        _particle.SetActive(true);
+        
 
         if (_changeRandom && !_reduceTime)
         {
+            GameManager.Instance.AddScore();
+            _particle.SetActive(true);
             _count = Random();
             StartCoroutine(ChangeSprite());
             Debug.Log(_count);
@@ -63,6 +65,7 @@ public class Advertisement : MonoBehaviour
 
             if (_count <= 0)
             {
+                _particle.SetActive(false);
                 _reduceTime = false;
                 _count = _randomCount[0];
                 _sprite.sprite = _startSprites;

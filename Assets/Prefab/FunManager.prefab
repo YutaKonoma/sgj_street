@@ -45,10 +45,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _levelUpValues:
-  - 1
-  - 2
   - 3
+  - 5
+  - 7
+  - 10
   _humans:
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
