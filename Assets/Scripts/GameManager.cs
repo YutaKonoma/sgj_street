@@ -169,6 +169,10 @@ public class GameManager : SingletonMonovihair<GameManager>
         {
             _gameOver.SetActive(false);
         }
+        _maxbool = false;
+        _oneTimer = false;
+        _twoTimer = false;
+
     }
 
     IEnumerator SceneChangeTime()
