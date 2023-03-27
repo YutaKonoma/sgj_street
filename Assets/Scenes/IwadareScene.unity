@@ -807,6 +807,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 760553900249061447, guid: 74ce3f51379777748a591360ff810210, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 79ae0146e03803f409b2e0b9fc70a36f, type: 3}
     - target: {fileID: 3727665244521641829, guid: 74ce3f51379777748a591360ff810210, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -969,6 +973,10 @@ PrefabInstance:
       propertyPath: m_Text
       value: "\u5E03\u6559\u5EA6:"
       objectReference: {fileID: 0}
+    - target: {fileID: 9038689713610071554, guid: be59b89f1fc66564bb7d9ab98547c5b4, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     - target: {fileID: 9038689714023460050, guid: be59b89f1fc66564bb7d9ab98547c5b4, type: 3}
       propertyPath: m_Name
       value: ScoreTimeCanvas
