@@ -115,11 +115,11 @@ public class GameManager : SingletonMonovihair<GameManager>
 
     void ShowScoreText()
     {
-        if (_scoreText && _score < 100)
+        if (_scoreText && _score < 120)
         {
-            _scoreText.text = _score.ToString();
+            _scoreText.text = _score.ToString() + "“";
         }
-        else if(_score == 100 && !_maxbool)
+        else if(_score == 120 && !_maxbool)
         {
             _maxbool = true;
             _scoreText.text = "MAX!!!";
@@ -131,7 +131,7 @@ public class GameManager : SingletonMonovihair<GameManager>
     {
         if (_gameStart && !gameEnd)
         {
-            _score = Mathf.Min(_score + score,100);
+            _score = Mathf.Min(_score + score,120);
             ShowScoreText();
             if (_countUp && _countUpPos && _canvasParent)
             {
