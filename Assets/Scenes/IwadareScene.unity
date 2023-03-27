@@ -811,6 +811,10 @@ PrefabInstance:
       propertyPath: m_FontData.m_Font
       value: 
       objectReference: {fileID: 12800000, guid: 79ae0146e03803f409b2e0b9fc70a36f, type: 3}
+    - target: {fileID: 1804850226609231295, guid: 74ce3f51379777748a591360ff810210, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: b6c3ee8fd0ed18644b3731c6c29026a3, type: 2}
     - target: {fileID: 3727665244521641829, guid: 74ce3f51379777748a591360ff810210, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -860,6 +864,10 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3727665244521641830, guid: 74ce3f51379777748a591360ff810210, type: 3}
+      propertyPath: _startScore
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 3727665244521641830, guid: 74ce3f51379777748a591360ff810210, type: 3}
       propertyPath: _timerSprites.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -887,21 +895,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: DeadBattery
       objectReference: {fileID: 0}
-    - target: {fileID: 6578713568486703776, guid: 74ce3f51379777748a591360ff810210, type: 3}
+    - target: {fileID: 4229074030035802966, guid: 74ce3f51379777748a591360ff810210, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4414953922390271653, guid: 74ce3f51379777748a591360ff810210, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4533239699309755346, guid: 74ce3f51379777748a591360ff810210, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7911940445275279479, guid: 74ce3f51379777748a591360ff810210, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 54
+      value: -671.00024
       objectReference: {fileID: 0}
-    - target: {fileID: 6578713568486703776, guid: 74ce3f51379777748a591360ff810210, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 216
-      objectReference: {fileID: 0}
-    - target: {fileID: 7370487339397204747, guid: 74ce3f51379777748a591360ff810210, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -189
-      objectReference: {fileID: 0}
-    - target: {fileID: 7370487339397204747, guid: 74ce3f51379777748a591360ff810210, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 207
+    - target: {fileID: 8121738278599623913, guid: 74ce3f51379777748a591360ff810210, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 74ce3f51379777748a591360ff810210, type: 3}

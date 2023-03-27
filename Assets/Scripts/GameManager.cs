@@ -13,23 +13,32 @@ public class GameManager : SingletonMonovihair<GameManager>
     [SerializeField] Sprite[] _timerSprites; 
     [SerializeField] float _startTime = 100f;
     float _time;
+    [Header("デバック用です。基本0にしておいてください。")]
+    [SerializeField] float _startScore = 0f;
     float _score;
     public float score => _score;
     [SerializeField] GameObject _canvasParent;
     [SerializeField] GameObject _countUp;
     [SerializeField] GameObject _countUpPos;
     [SerializeField] GameObject _gameOver;
+    [SerializeField] GameObject _feverTimeObj;
     [Header("3からGoの順に入れてください。")]
     [SerializeField] GameObject[] _countDownObject;
     int _level;
     public int level => _level;
     [SerializeField] string _sceneName;
+    [Tooltip("true時、ゲームスタート(ゲーム中)")]
     bool _gameStart;
     public bool gameStart => _gameStart;
+    [Tooltip("true時、ゲームエンド(ゲーム終わり)")]
     bool _gameEnd;
     public bool gameEnd => _gameEnd;
+    [Tooltip("true時、フィーバータイム")]
+    bool _feverTime;
+    public bool feverTime => _feverTime;
     bool _oneTimer;
     bool _twoTimer;
+    bool _maxbool;
 
     protected override bool _dontDestroyOnLoad => true;
     // Start is called before the first frame update
@@ -46,7 +55,7 @@ public class GameManager : SingletonMonovihair<GameManager>
         //_timeSlider = GameObject.FindGameObjectWithTag("Time")?.GetComponent<Slider>();
 
         _time = _startTime;
-        _score = 0;
+        _score = _startScore;
         if (_gameOver)
         {
             _gameOver.SetActive(false);
@@ -74,6 +83,8 @@ public class GameManager : SingletonMonovihair<GameManager>
                 {
                     _twoTimer = true;
                     _timerObj.sprite = _timerSprites[_timerSprites.Length - 2];
+                    _feverTime = true;
+                    StartCoroutine(FeverTextTime());
                 }
                 else if(_time / _startTime < 0.6f && !_oneTimer)
                 {
@@ -104,9 +115,15 @@ public class GameManager : SingletonMonovihair<GameManager>
 
     void ShowScoreText()
     {
-        if (_scoreText)
+        if (_scoreText && _score < 100)
         {
             _scoreText.text = _score.ToString();
+        }
+        else if(_score == 100 && !_maxbool)
+        {
+            _maxbool = true;
+            _scoreText.text = "MAX!!!";
+            _scoreText.color = Color.red;
         }
     }
 
@@ -114,7 +131,7 @@ public class GameManager : SingletonMonovihair<GameManager>
     {
         if (_gameStart && !gameEnd)
         {
-            _score += score;
+            _score = Mathf.Min(_score + score,100);
             ShowScoreText();
             if (_countUp && _countUpPos && _canvasParent)
             {
@@ -156,6 +173,17 @@ public class GameManager : SingletonMonovihair<GameManager>
             _gameStart = true;
             _countDownObject[_countDownObject.Length - 1].SetActive(false);
         }
+    }
+
+    IEnumerator FeverTextTime()
+    {
+        if (_feverTimeObj)
+        {
+            _feverTimeObj.SetActive(true);
+            yield return new WaitForSeconds(2f);
+            _feverTimeObj.SetActive(false);
+        }
+
     }
 
     public void LevelUp()
