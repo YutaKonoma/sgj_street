@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class GameManager : SingletonMonovihair<GameManager>
 {
     Text _scoreText;
+    Text _levelText;
     //Text _timeText;
     //Slider _timeSlider;
     Image _timerObj;
@@ -22,6 +23,8 @@ public class GameManager : SingletonMonovihair<GameManager>
     [SerializeField] GameObject _countUpPos;
     [SerializeField] GameObject _gameOver;
     [SerializeField] GameObject _feverTimeObj;
+    [SerializeField] GameObject _levelUpPos;
+    [SerializeField] GameObject _levelUpObj;
     [Header("3Ç©ÇÁGoÇÃèáÇ…ì¸ÇÍÇƒÇ≠ÇæÇ≥Ç¢ÅB")]
     [SerializeField] GameObject[] _countDownObject;
     int _level;
@@ -51,6 +54,7 @@ public class GameManager : SingletonMonovihair<GameManager>
     {
         _scoreText = GameObject.FindGameObjectWithTag("Score")?.GetComponent<Text>();
         _timerObj = GameObject.FindGameObjectWithTag("Time")?.GetComponent<Image>();
+        _levelText = GameObject.FindGameObjectWithTag("Level")?.GetComponent<Text>();
         //_timeText = GameObject.FindGameObjectWithTag("Time")?.GetComponent<Text>();
         //_timeSlider = GameObject.FindGameObjectWithTag("Time")?.GetComponent<Slider>();
 
@@ -84,6 +88,8 @@ public class GameManager : SingletonMonovihair<GameManager>
                     _twoTimer = true;
                     _timerObj.sprite = _timerSprites[_timerSprites.Length - 2];
                     _feverTime = true;
+                    AudioManager.Instance.PlaySE(AudioManager.SeSoundData.SE.fever);
+                    AudioManager.Instance.PlayBGM(AudioManager.BgmSoundData.BGM.fever);
                     StartCoroutine(FeverTextTime());
                 }
                 else if(_time / _startTime < 0.6f && !_oneTimer)
@@ -108,7 +114,8 @@ public class GameManager : SingletonMonovihair<GameManager>
             {
                 _gameOver.SetActive(true);
             }
-                _gameEnd = true;
+            AudioManager.Instance.PlaySE(AudioManager.SeSoundData.SE.End);
+            _gameEnd = true;
             StartCoroutine(SceneChangeTime());
         }
     }
@@ -117,13 +124,24 @@ public class GameManager : SingletonMonovihair<GameManager>
     {
         if (_scoreText && _score < 120)
         {
-            _scoreText.text = _score.ToString() + "Åì";
+            _scoreText.text = _score.ToString();
         }
-        else if(_score == 120 && !_maxbool)
+    }
+
+    void ShowLevelText()
+    {
+        if (_levelText)
         {
-            _maxbool = true;
-            _scoreText.text = "MAX!!!";
-            _scoreText.color = Color.red;
+            if(_level < 4)
+            {
+                _levelText.text = "LEVEL" + _level;
+            }
+            else if (_level == 4 && !_maxbool)
+            {
+                _maxbool = true;
+                _levelText.text = "MAXLEVEL!!!";
+                _levelText.color = Color.red;
+            }
         }
     }
 
@@ -168,10 +186,12 @@ public class GameManager : SingletonMonovihair<GameManager>
                 yield return new WaitForSeconds(1f);
                 _countDownObject[i].SetActive(true);
                 _countDownObject[i - 1].SetActive(false);
+                AudioManager.Instance.PlaySE(AudioManager.SeSoundData.SE.CountDown);
             }
             yield return new WaitForSeconds(1f);
             _gameStart = true;
             _countDownObject[_countDownObject.Length - 1].SetActive(false);
+            AudioManager.Instance.PlaySE(AudioManager.SeSoundData.SE.Start);
         }
     }
 
@@ -189,10 +209,18 @@ public class GameManager : SingletonMonovihair<GameManager>
     public void LevelUp()
     {
         _level++;
+        ShowLevelText();
+        if (_levelUpObj && _levelUpPos)
+        {
+            var obj = Instantiate(_levelUpObj, _levelUpPos.transform.position, Quaternion.identity);
+            obj.transform.parent = _canvasParent.transform;
+            Destroy(obj, 2.0f);
+        }
     }
 
     public void ResetLevel()
     {
         _level = 1;
+        ShowLevelText();
     }
 }
