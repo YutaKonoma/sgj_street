@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public class Advertisement : MonoBehaviour
 {
-    [SerializeField] 
+    [SerializeField]
     [Header("広告のスプライト")]
     SpriteRenderer _sprite;
 
@@ -18,6 +18,10 @@ public class Advertisement : MonoBehaviour
     [SerializeField]
     [Header("変更後の画像")]
     Sprite _changeSprite;
+
+    [SerializeField]
+    [Header("クリック時のパーティクル 非表示にしておく")]
+    GameObject _particle;
 
     [SerializeField]
     [Header("広告が変わるタイミングが一定ならfalse ランダムならtrue")]
@@ -37,7 +41,9 @@ public class Advertisement : MonoBehaviour
 
     private void OnMouseDown()
     {
+        GameManager.Instance.AddScore();
         _sprite.sprite = _changeSprite;
+        _particle.SetActive(true);
 
         if (_changeRandom && !_reduceTime)
         {
@@ -46,10 +52,10 @@ public class Advertisement : MonoBehaviour
             Debug.Log(_count);
         }
 
-        _reduceTime = true;   
+        _reduceTime = true;
     }
 
-    IEnumerator ChangeSprite() 
+    IEnumerator ChangeSprite()
     {
         while (true)
         {
